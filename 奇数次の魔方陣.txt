@@ -1,6 +1,8 @@
 REM   十進basicを使っています。オプションメニューから文法--microsoft BASIC互換を選んで実行してください。
 REM  !印以下は注釈文です。実行には影響を与えません。
 REM   アルゴリズムはサイモン-ド-ラ-ルベールの斜進法を使っています。斜進法についてはインターネットなどで調べてください。
+rem  using   decimal   basic
+rem  download   from   http://hp.vector.co.jp/authors/VA008683/setup.htm
 REM  -------------------------------------------------------------------
 INPUT PROMPT "input  odd  number":n
 PRINT   !  出力を見やすくするため
