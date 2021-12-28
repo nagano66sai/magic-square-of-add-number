@@ -1,0 +1,101 @@
+REM   十進basicを使っています。オプションメニューから文法--microsoft BASIC互換を選んで実行してください。
+REM  !印以下は注釈文です。実行には影響を与えません。
+REM   アルゴリズムはサイモン-ド-ラ-ルベールの斜進法を使っています。斜進法についてはインターネットなどで調べてください。
+REM  -------------------------------------------------------------------
+INPUT PROMPT "奇数を入力してください。":n
+PRINT   !  出力を見やすくするため
+PRINT  !
+PRINT  !
+OPTION  BASE  1
+DIM  a(n,n)  !用いる配列の宣言
+MAT   a=ZER    !配列を0で初期化
+
+LET k=1
+LET i=1      ! 行上段
+LET j=(n+1)/2  !  列中央
+LET a(i,j)=1  !  上段中央を1とする
+10
+   LET k=k+1
+   IF   k=n*n+1      THEN   GOTO     50   !  全部置けたら50へ飛んで盤面を表示
+   LET i=i-1
+   LET j=j+1
+  IF   i<1   AND   j>n   THEN   LET a(i+2,j-1)=k:i=i+2:j=j-1:GOTO  10
+   IF   i<1  THEN   GOTO   30   !  iの値が上側の壁なら30へ飛ぶ
+   IF   j>n   THEN   GOTO   40   !  jの値が右側の壁なら40へ飛ぶ
+ 
+   IF   a(i,j)=0   THEN  LET a(i,j)=k :GOTO  10 ! 進むべきところが0ならそこをkとする
+   IF  a(i,j)<>0  THEN   LET a(i+2,j-1)=k :i=i+2:j=j-1:GOTO  10        !進むべきところが0でないならば1つ下をkとする 
+
+ 
+
+
+ 
+30
+   LET i=n    !  下段に飛ぶ
+   LET j=j
+   LET a(i,j)=k
+   GOTO  10  ! 行番号10へもどる
+40
+   LET i=i
+   LET j=1   !  一番左の列に飛ぶ
+   LET a(i,j)=k
+   GOTO  10   ! 行番号10へもどる
+    
+    
+REM    ------------------------------------------------ 
+!    盤面出力
+50  
+
+PRINT   n;"次魔方陣" 
+PRINT
+
+
+   FOR   p=1  TO   n
+      FOR   q=1   TO   n
+         PRINT   a(p,q);
+      NEXT Q
+      PRINT  
+   NEXT P
+REM---------------------------------------------------------
+PRINT  
+PRINT  "各行の合計の確認"
+sum=0
+FOR   t=1  TO   n
+FOR  tt=1   TO  n
+sum=sum+a(t,tt)
+NEXT
+PRINT  sum
+sum=0
+NEXT
+REM  ------------------------------------
+PRINT  
+PRINT  "各列の合計の確認"
+sum2=0
+FOR   t=1  TO   n
+FOR  tt=1   TO  n
+sum2=sum2+a(tt,t)
+NEXT
+PRINT  sum2
+sum2=0
+NEXT
+REM---------------------------------------------
+PRINT 
+PRINT  "主対角線の合計の確認"
+sum3=0
+FOR   t=1  TO   n
+FOR  tt=1   TO  n
+IF    t=tt   THEN  sum3=sum3+a(t,tt)
+NEXT
+NEXT
+PRINT  sum3
+REM------------------------------------
+PRINT  
+PRINT  "副対角線の合計の確認"
+sum4=0
+FOR   t=1  TO   n
+FOR  tt=1   TO  n
+IF    t+tt=n+1   THEN  sum4=sum4+a(t,tt)
+NEXT
+NEXT
+PRINT  sum4
+END
